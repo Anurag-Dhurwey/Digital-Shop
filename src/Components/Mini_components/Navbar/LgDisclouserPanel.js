@@ -1,6 +1,8 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
+import { useGlobleContext } from '../../../Context/Globle_Context'
 const LgDisclouserPanel = (props) => {
+  const {enabled}=useGlobleContext()
     const {classNames,navigation}=props.class
   return (
     <>
@@ -11,7 +13,7 @@ const LgDisclouserPanel = (props) => {
                         key={item.name}
                         to={item.href}
                         className={classNames(
-                          item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                          item.current ? enabled?'bg-pink-900 text-white':'bg-gray-900 text-white' : enabled?'text-white hover:bg-pink-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium':'text-black hover:bg-pink-700 hover:text-white',
                           'rounded-md px-3 py-2 text-sm font-medium'
                         )}
                         aria-current={item.current ? 'page' : undefined}

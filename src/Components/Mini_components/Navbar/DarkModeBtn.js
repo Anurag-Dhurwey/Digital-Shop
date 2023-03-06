@@ -1,16 +1,16 @@
 import React from 'react'
-import { useState } from 'react'
 import { Switch } from '@headlessui/react'
+import { useGlobleContext } from '../../../Context/Globle_Context'
 const DarkModeBtn = () => {
-    const [enabled, setEnabled] = useState(false)
-
+    const {enabled, setEnabled} =useGlobleContext() 
+console.log(enabled)
   return (
     <>
       
       <Switch
         checked={enabled}
         onChange={setEnabled}
-        className={`${enabled ? 'bg-teal-900' : 'bg-teal-300'}
+        className={`${enabled ? 'bg-teal-300' : 'bg-teal-900'}
           relative inline-flex h-[15px] w-[34px] shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus-visible:ring-2  focus-visible:ring-white focus-visible:ring-opacity-75`}
       >
         <span className="sr-only">Use setting</span>

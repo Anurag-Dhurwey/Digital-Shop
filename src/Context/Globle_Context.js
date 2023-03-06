@@ -1,17 +1,18 @@
-import React, {createContext, useContext } from 'react'
-const Context=createContext()
+import { useState, createContext, useContext } from "react";
 
-const GlobleContext = ({Children}) => {
+const Context = createContext()
+
+export const GlobleContext=({children})=> {
+  const [enabled, setEnabled] = useState(true)
+
   return (
-    <Context.Provider value={"hello"} >
-      {Children}
+    <Context.Provider value={{enabled,setEnabled}}>
+      {children}
     </Context.Provider>
-  )
+  );
 }
-
-export default GlobleContext
-
 
 export const useGlobleContext=()=>{
-    return useContext(Context)
+  return useContext(Context)
 }
+

@@ -1,11 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
-import { useGlobleContext } from '../../Context/Globle_Context'
 
 const Home = () => {
 
-  const value=useGlobleContext()
-  console.log(value)
 
   return (
     <>
@@ -21,5 +18,5 @@ const Home = () => {
 export default Home
 
 const Wrapper=styled.div`
-
+margin-bottom: auto;
 `

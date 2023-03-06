@@ -3,13 +3,15 @@ import React from 'react'
 import {  BellIcon} from '@heroicons/react/24/outline'
 import {Link} from 'react-router-dom'
 import { BsMinecartLoaded } from 'react-icons/bs';
+import { useGlobleContext } from '../../../Context/Globle_Context';
 const CartBtn = () => {
+  const {enabled}=useGlobleContext()
   return (
     <>
      <Link to={'/cart'}>
      <button
                   type="button"
-                  className={`rounded-full bg-gray-800 sm:p-1 lg:p-8 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800`}
+                  className={`rounded-full ${enabled?'bg-gray-800 text-gray-400 hover:text-white':'bg-slate-300 text-gray-500 hover:text-black'} sm:p-1 lg:p-8  focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800`}
                 >
                   <span className="sr-only">View notifications</span>
                   {/* <BellIcon className="h-6 w-6" aria-hidden="true" /> */}

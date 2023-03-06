@@ -4,13 +4,16 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
+import {GlobleContext} from './Context/Globle_Context';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
+    <GlobleContext>
     <BrowserRouter>
     <App />
     </BrowserRouter>
+    </GlobleContext>
   </React.StrictMode>
 );
 
