@@ -9,8 +9,10 @@ import MobileMenuBtn from './Mini_components/Navbar/MobileMenuBtn'
 import {Link} from 'react-router-dom'
 import DarkModeBtn from './Mini_components/Navbar/DarkModeBtn'
 import { useGlobleContext } from '../Context/Globle_Context'
-const navigation = [
-  { name: 'Dashboard', href: '/dashboard', current: false },
+import { useReducer} from 'react'
+import { navReducer } from '../Reducer/navReducer'
+const navTitle = [
+  { name: 'Products', href: '/products', current: false },
   { name: 'Team', href: '/team', current: false },
   { name: 'Projects', href: '/projects', current: false },
   { name: 'Calendar', href: '/calendar', current: false },
@@ -21,6 +23,7 @@ function classNames(...classes) {
 }
 
 export const Navbar=()=> {
+  const [navigation,setNavigation]=useReducer(navReducer,navTitle)
   const {enabled}=useGlobleContext()
   return (
     <Disclosure as="nav" className={`${enabled?'bg-gray-800':'bg-slate-300'}`}>
@@ -52,7 +55,7 @@ export const Navbar=()=> {
                   </Link>
                 </div>
                     {/* navigation menu for large devices */}
-                    <LgDisclouserPanel class={{classNames,navigation}} />
+                    <LgDisclouserPanel class={{classNames,navigation,setNavigation}} />
               </div> 
 
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
@@ -68,7 +71,7 @@ export const Navbar=()=> {
             </div>
           </div>
                     {/* navigation menu for Mobile devices */}                 
-          <DisclosurePanel class={{classNames,navigation}}/>
+          <DisclosurePanel class={{classNames,navigation,setNavigation}}/>
         </>
       )}
     </Disclosure>

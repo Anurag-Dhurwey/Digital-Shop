@@ -3,7 +3,6 @@ import { Switch } from '@headlessui/react'
 import { useGlobleContext } from '../../../Context/Globle_Context'
 const DarkModeBtn = () => {
     const {enabled, setEnabled} =useGlobleContext() 
-console.log(enabled)
   return (
     <>
       
