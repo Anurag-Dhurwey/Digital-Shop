@@ -13,12 +13,21 @@ export const GlobleContext=({children})=> {
     isError:false
   }
   const [state,dispatch]=useReducer(getReducer,initialState)
-//  console.log(state)
+ console.log(state)
   useEffect(()=>{
     
      const getApi=async()=>{
+     try {
       const api= await getProductApi()
-      dispatch({type:"getAllProducts",payload:api.data})
+      if(api.message){
+        dispatch({type:"error"})
+      }else{
+
+        dispatch({type:"getAllProducts",payload:api.data})
+      }
+     } catch (error) {
+      dispatch({type:"error"})
+     }
     }
     getApi()
   },[])

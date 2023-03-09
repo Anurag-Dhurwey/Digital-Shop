@@ -6,7 +6,11 @@ switch (action.type) {
            ...state,
            products:[...action.payload]
         };
-      
+      case 'error':
+        return{
+            ...state,
+            isError:true
+        }
 
     default:
         return state;
