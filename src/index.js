@@ -5,14 +5,17 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 import {GlobleContext} from './Context/Globle_Context';
+import { FilterContext } from './Context/FilterContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <GlobleContext>
+    <FilterContext>
     <BrowserRouter>
     <App />
     </BrowserRouter>
+    </FilterContext>
     </GlobleContext>
   </React.StrictMode>
 );

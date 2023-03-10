@@ -5,8 +5,11 @@ import Home from './Components/Sub_components/Home';
 import { Navbar } from './Components/Navbar';
 import Footer from './Components/Footer';
 import Products from './Components/Sub_components/Products';
+import { useGlobleContext } from './Context/Globle_Context';
 
 function App() {
+  const {enabled}=useGlobleContext()
+  if(enabled){document.body.style.backgroundColor='rgb(34, 34, 34)'}else{document.body.style.backgroundColor='rgb(192,192,192)'}
   return (
     <>
     <Navbar/>

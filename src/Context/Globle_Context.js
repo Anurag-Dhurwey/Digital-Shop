@@ -13,7 +13,6 @@ export const GlobleContext=({children})=> {
     isError:false
   }
   const [state,dispatch]=useReducer(getReducer,initialState)
- console.log(state)
   useEffect(()=>{
     
      const getApi=async()=>{

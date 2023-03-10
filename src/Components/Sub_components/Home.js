@@ -1,5 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
+import Carousel from '../Mini_components/Home/Carousel'
+
 
 const Home = () => {
 
@@ -8,6 +10,7 @@ const Home = () => {
     <>
       <Wrapper>
        <div className='container mx-auto text-center'>
+        <Carousel/>
         <h3>this is my home page</h3>
        </div>
       </Wrapper>
