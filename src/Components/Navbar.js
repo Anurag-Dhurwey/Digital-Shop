@@ -41,7 +41,7 @@ export const Navbar=()=> {
                 <DarkModeBtn/>
                 </div>
                 <div className="flex flex-shrink-0 items-center">
-                  <Link to='/'>
+                  <Link to='/'  onClick={()=>{setNavigation({type:"offNavEffect",payload:navigation})}} >
                   <img
                     className="block h-8 w-auto lg:hidden"
                     src={logo}

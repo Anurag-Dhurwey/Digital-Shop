@@ -4,19 +4,6 @@ import { useGlobleContext } from '../../../Context/Globle_Context'
 const LgDisclouserPanel = (props) => {
   const {enabled}=useGlobleContext()
     const {classNames,navigation,setNavigation}=props.class
-    // const setCurrent=(item)=>{
-    //   setNavigation((pre)=>{
-    //        let newNav=pre.map((currItm)=>{
-    //           if(item.name===currItm.name){
-    //           return  {...currItm,current:true}
-    //           }else{
-    //             return {...currItm,current:false}
-    //           }   
-    //        })
-    //        return newNav
-    //   })
-    //   console.log(item)
-    // }
   return (
     <>
      <div className="hidden sm:ml-6 sm:block">

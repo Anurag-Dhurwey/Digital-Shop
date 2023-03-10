@@ -1,7 +1,7 @@
 export const navReducer=(state,action)=>{
     switch (action.type) {
         case 'setCurrent':
-            let newNav=state.map((currItm)=>{
+            const newNav=state.map((currItm)=>{
                 if(action.payload.name===currItm.name){
                 return  {...currItm,current:true}
                 }else{
@@ -9,7 +9,14 @@ export const navReducer=(state,action)=>{
                 }   
              })
             return newNav;
-            
+        case 'offNavEffect':
+            const newNav2=state.map((currItm)=>{
+               return {
+                ...currItm,current:false
+               }
+             })
+           
+            return newNav2
             
     
         default:

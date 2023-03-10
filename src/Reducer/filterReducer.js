@@ -12,7 +12,7 @@ export const filterReducer = (state, action) => {
 
       if (name === "search") {
         tempFiltered = tempFiltered.filter((item, i) => {
-           const {title} =item.attributes
+          const { title } = item.attributes;
           return title.toLowerCase().includes(keyWord.toLowerCase());
         });
       }
@@ -20,24 +20,18 @@ export const filterReducer = (state, action) => {
         ...state,
         filteredProducts: [...tempFiltered],
       };
-      case "sorting":
-        
-       let sortValue 
-       if(action.payload.target==='sort'){
+    case "sorting":
+      let sortValue;
+      if (action.payload.target === "sort") {
         let sortForm = document.getElementById("sort");
-         sortValue = sortForm.options[sortForm.selectedIndex].value;
-       }
-       if(action.payload.target==='category'){
-        let sortForm = document.getElementById("category");
-         sortValue = sortForm.options[sortForm.selectedIndex].value;
-       }
-        return {
-          ...state,
-          sort_value: sortValue,
-        };
+        sortValue = sortForm.options[sortForm.selectedIndex].value;
+      }
+      return {
+        ...state,
+        sort_value: sortValue,
+      };
 
-        case "sorted_product":
-     
+    case "sorted_product":
       let newSortedData = [...action.payload];
       if (state.sort_value === "lowest") {
         newSortedData = newSortedData.sort((a, b) => {
@@ -60,26 +54,26 @@ export const filterReducer = (state, action) => {
         });
       }
       if (state.sort_value === "earphone") {
-        newSortedData = newSortedData.filter((item,i)=>{
-          return item.attributes.category.a==='earphone'
-        })
+        newSortedData = newSortedData.filter((item, i) => {
+          return item.attributes.category.a === "earphone";
+        });
       }
       if (state.sort_value === "Headphone") {
-        newSortedData = newSortedData.filter((item,i)=>{
-          return item.attributes.category.a==='Headphone'
-        })
+        newSortedData = newSortedData.filter((item, i) => {
+          return item.attributes.category.a === "Headphone";
+        });
       }
       if (state.sort_value === "Mobile") {
-        newSortedData = newSortedData.filter((item,i)=>{
-          return item.attributes.category.a==='Mobile'
-        })
+        newSortedData = newSortedData.filter((item, i) => {
+          return item.attributes.category.a === "Mobile";
+        });
       }
       if (state.sort_value === "Laptop") {
-        newSortedData = newSortedData.filter((item,i)=>{
-          return item.attributes.category.a==='Laptop'
-        })
+        newSortedData = newSortedData.filter((item, i) => {
+          return item.attributes.category.a === "Laptop";
+        });
       }
-     
+
       return {
         ...state,
         filteredProducts: newSortedData,
