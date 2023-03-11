@@ -1,19 +1,23 @@
-export const getReducer=(state,action)=>{
+export const getReducer = (state, action) => {
+  switch (action.type) {
+    case "getAllProducts":
+      const featuredProducts = action.payload?.filter((item, i) => {
+        return item.attributes.isfeatured === true;
+      });
+      return {
+        ...state,
+        featuredProducts: featuredProducts,
+        products: [...action.payload],
+      };
 
-switch (action.type) {
-    case 'getAllProducts':
-        return{
-           ...state,
-           products:[...action.payload]
-        };
-      case 'error':
-        return{
-            ...state,
-            isError:true
-        }
+      
+    case "error":
+      return {
+        ...state,
+        isError: true,
+      };
 
     default:
-        return state;
-}
-
-} 
+      return state;
+  }
+};

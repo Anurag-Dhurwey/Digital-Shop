@@ -20,7 +20,7 @@ const MapAllProducts = (props) => {
                     </figure>
                  </div>
                  <div>
-                    <h2 className='font-bold  text-xs lg:text-base  lg:w-[600px] md:text-base  '>{ window.innerWidth>640?title:title.slice(0,50)}</h2>
+                    <h2 className='font-bold  text-xs lg:text-base  lg:w-[600px] md:text-base  '>{ window.innerWidth>640?title:title.slice(0,50)}....</h2>
                     <div className='review text-xs lg:text-base'><p className='text-pink-800'>{!rating?'No reviews':'true'}</p> </div>
                     <ul className='text-xs lg:text-base' >{required_metadata.meta.map((item,i)=>{
                      const {key,value}=item
