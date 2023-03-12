@@ -7,7 +7,7 @@ export const GlobleContext=({children})=> {
   const [enabled, setEnabled] = useState(true)
   const initialState={
     products:[],
-    aProduct:{},
+    aProduct:[],
     featuredProducts:[],
     isLoading:false,
     isError:false,

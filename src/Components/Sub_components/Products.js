@@ -13,7 +13,7 @@ const Products = () => {
    //  console.log(products)
   return (
     <>
-     <div className='container mx-auto '>
+     <div className='container mx-auto mb-auto'>
         <div className='px-2 lg:px-0 md:px-0'>
          {isError?<InternalError/>:<><FilterProduct/><MapAllProducts products={filteredProducts}/></>}
         </div>

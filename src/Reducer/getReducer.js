@@ -14,7 +14,7 @@ export const getReducer = (state, action) => {
       console.log(action.payload+' '+1)
       return {
         ...state,
-        aProduct:{...action.payload}
+        aProduct:[{...action.payload}]
       } 
     case "error":
       return {
