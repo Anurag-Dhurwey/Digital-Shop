@@ -17,8 +17,8 @@ const RequiredMeta = ({ metaData }) => {
           
             <tr
             key={i}
-              className={`${
-                enabled ? "true" : "false"
+              className={` ${
+                enabled ? "even:bg-zinc-700 odd:bg-zinc-800 text-white" : "even:bg-slate-300 odd:bg-white text-black"
               }`}
             >
               <th>{key}</th>
@@ -47,9 +47,9 @@ table {
     padding: 2px;
   }
   
-  tr:nth-child(even) {
-    background-color: #dddddd;
-  }
+  // tr:nth-child(even) {
+  //   background-color: #dddddd;
+  // }
 `
 
 export default RequiredMeta;

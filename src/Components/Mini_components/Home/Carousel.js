@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 
 const Carousel = (props) => {
-  const { children } = props;
+  const { children,bgBanner } = props;
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [length, setLength] = useState(children.length);
@@ -33,11 +33,11 @@ const Carousel = (props) => {
         <div className=" flex w-[100%] relative">
           {/* You can alwas change the content of the button to other things */}
           {currentIndex > 0 && (
-            <button onClick={prev} className="left-arrow left-[24px] top-[35px] md:top-[65px] lg:top-[100px]">
+            <button onClick={prev} className="left-arrow left-[24px] top-[35px] md:top-[65px] lg:top-[100px] bg-green-700">
               &lt;
             </button>
           )}
-          <div className="absolute z-[-1]">
+          <div className={`${bgBanner?'absolute z-[-1]':''}`}>
           <div className="overflow-hidden w[100%] h-[100%] ">
             <div
               className="carousel-content"
@@ -49,7 +49,7 @@ const Carousel = (props) => {
           </div>
           {/* You can alwas change the content of the button to other things */}
           {currentIndex < length - 1 && (
-            <button onClick={next} className="right-arrow right-[24px] top-[35px] md:top-[65px] lg:top-[100px]">
+            <button onClick={next} className="right-arrow right-[24px] top-[35px] md:top-[65px] lg:top-[100px] bg-green-700">
               &gt;
             </button>
           )}
@@ -90,7 +90,7 @@ const Wrapper = styled.div`
   .right-arrow {
     position: absolute;
     z-index: 5;
-    
+    // background-color: green;
     transform: translateY(-50%);
     width: 28px;
     height: 28px;

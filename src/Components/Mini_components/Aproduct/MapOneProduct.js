@@ -3,6 +3,14 @@ import { useGlobleContext } from "../../../Context/Globle_Context";
 import AproductImages from "./AproductImages";
 import AddToCartBtn from "./AddToCartBtn";
 import RequiredMeta from "./RequiredMeta";
+import Price from "../Products/Price";
+import RatingReview from "../Products/RatingReview";
+import Description from "./Description";
+import Banner from "./Banner";
+import Featured from "../Home/HomeProducts/Featured";
+import ProductsTemplate from "../Home/HomeProducts/ProductsTemplate";
+import BoxItem from "./BoxItem";
+import Size from "./Size";
 const MapOneProduct = ({ aProduct }) => {
   const { enabled } = useGlobleContext();
   return (
@@ -23,33 +31,37 @@ const MapOneProduct = ({ aProduct }) => {
           metadata,
           rating,
           image,
-          box_item,
+          box_items,
         } = item.attributes;
-
         return (
-          <div key={item.id} className="grid grid-cols-2 gap-5">
+          <div key={item.id}>
+            <div  className="grid grid-cols-2 gap-2">
             <AproductImages image={image} />
             <div className="details">
-              <h3>{title}</h3>
-              {/* <StarsRate stars={stars}/> */}
-              {/* <h3>{reviews}</h3> */}
-              <h2 className="font-extrabold">&#x20B9;{price}</h2>
-              <p className="text-sm">
-                <span className="line-through">&#x20B9;{local_price}</span>{" "}
-                <span
-                  className={`font-semibold ${
-                    enabled ? "text-[#00ff7f]" : "text-green-900"
-                  }`}
-                >
-                  {Math.ceil(100 - (price * 100) / local_price)}% Off{" "}
-                </span>
-              </p>
-              {description.desc.map((item,i)=>{
-                return <p key={i}>{item}</p>
-              })}
+              <h3 className={`${enabled?'text-white':'text-black'}`}>{title}</h3>
+              <RatingReview rating={rating}/>
+             
+              <Price priceData={{price,local_price,enabled}}/>
+              
               <AddToCartBtn stock={qty} />
+              <Size size={size?size.size:[]}/>
               <RequiredMeta metaData={required_metadata}/>
+              <Description description={description}/>
+              
             </div>
+          </div>
+          <BoxItem items={box_items?box_items.items:[]}/>
+          
+          <div className="recomended products">
+               <Featured ProductsTemplate={ProductsTemplate} title={'Recomended Products'}/>
+          </div>
+          <Banner banner={image.banner_img}/>
+          <div className="Featured products">
+               <Featured ProductsTemplate={ProductsTemplate} title={'Featured Products'}/>
+          </div>
+          <div className="You may also like">
+               <Featured ProductsTemplate={ProductsTemplate} title={'You may also like'}/>
+          </div>
           </div>
         );
       })}

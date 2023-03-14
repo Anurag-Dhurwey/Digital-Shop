@@ -1,6 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useGlobleContext } from "../../../Context/Globle_Context";
+import Highlights from "./Highlights";
+import Price from "./Price";
+import RatingReview from "./RatingReview";
 
 const MapAllProducts = (props) => {
   const { enabled } = useGlobleContext();
@@ -50,35 +53,10 @@ const MapAllProducts = (props) => {
                   {window.innerWidth > 640 ? title : title.slice(0, 50)}....
                 </Link>
               </h2>
-              <div className="review text-xs lg:text-base">
-                <p className="text-pink-800">
-                  {!rating ? "No reviews" : "true"}
-                </p>{" "}
-              </div>
-              <ul className="text-xs lg:text-base">
-                {required_metadata.meta.map((item, i) => {
-                  const { key, value } = item;
-                  return (
-                    <li key={i}>
-                      {key} : {value}
-                    </li>
-                  );
-                })}
-              </ul>
+              <RatingReview rating={rating}/>
+              <Highlights required_meta={required_metadata}/>
             </div>
-            <div>
-              <h2 className="font-extrabold">&#x20B9;{price}</h2>
-              <p className="text-sm">
-                <span className="line-through">&#x20B9;{local_price}</span>{" "}
-                <span
-                  className={`font-semibold ${
-                    enabled ? "text-[#00ff7f]" : "text-green-900"
-                  }`}
-                >
-                  {Math.ceil(100 - (price * 100) / local_price)}% Off{" "}
-                </span>
-              </p>
-            </div>
+            <Price priceData={{price,local_price,enabled}}/>
           </div>
         );
       })}

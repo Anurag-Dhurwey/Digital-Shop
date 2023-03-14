@@ -3,6 +3,7 @@ import { useState } from 'react'
 import styled from 'styled-components'
 
 const AproductImages = ({image}) => {
+    // eslint-disable-next-line
     const {head_img,banner_img}=image;
     const [imgUrl,setImgUrl]=useState(head_img[0])
   return (
@@ -12,7 +13,7 @@ const AproductImages = ({image}) => {
             return (
                 <div key={i} >
                     <figure>
-                        <img style={{cursor: 'pointer'}}  src={img} alt={'img.name'} width="100px" onClick={()=>{setImgUrl(img)}} onMouseEnter={()=>{setImgUrl(img)}}/>
+                        <img className='cursor-pointer my-1'  src={img} alt={'img.name'} width="70px" onClick={()=>{setImgUrl(img)}} onMouseEnter={()=>{setImgUrl(img)}}/>
                     </figure>
                 </div>
             )
@@ -20,7 +21,7 @@ const AproductImages = ({image}) => {
         </div>
         <div className="main_img">
              <figure>
-             <img src={imgUrl} alt={'imgAlt'} width="300px"/>
+             <img src={imgUrl} alt={'imgAlt'} width="400px"/>
              </figure>
         </div>
     </Wrapper>
@@ -33,6 +34,8 @@ const Wrapper=styled.div`
     justify-content: center;
     align-items: center;
     gap:5px;
+    margin-bottom: auto;
+    padding-top: 10%;
 `
 
 export default AproductImages
