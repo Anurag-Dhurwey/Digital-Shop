@@ -35,15 +35,15 @@ const MapOneProduct = ({ aProduct }) => {
         } = item.attributes;
         return (
           <div key={item.id}>
-            <div  className="grid grid-cols-2 gap-2">
+            <div  className="flex-col justify-center items-center md:grid md:grid-cols-2 md:gap-2 lg:grid lg:grid-cols-2 lg:gap-2">
             <AproductImages image={image} />
             <div className="details">
               <h3 className={`${enabled?'text-white':'text-black'}`}>{title}</h3>
               <RatingReview rating={rating}/>
              
-              <Price priceData={{price,local_price,enabled}}/>
+              <Price priceData={{price,local_price,enabled,flex:true}}/>
               
-              <AddToCartBtn stock={qty} />
+              <AddToCartBtn stock={qty} product={item}  />
               <Size size={size?size.size:[]}/>
               <RequiredMeta metaData={required_metadata}/>
               <Description description={description}/>

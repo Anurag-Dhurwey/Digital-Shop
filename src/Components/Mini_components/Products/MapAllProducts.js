@@ -41,8 +41,8 @@ const MapAllProducts = (props) => {
           >
             <div>
               <figure className="lg:h-[300px] lg:w-[300px] md:h-[300px] md:w-[300px] w-[145px]  overflow-hidden">
-                <Link to={`/product/${item.id}`}>
-                  <img src={head_img[1]} alt="product_Img" />
+                <Link to={`/product/${item.id}`} >
+                  <img src={head_img[1]} alt="product_Img" onMouseEnter={console.log("this")} />
                 </Link>
               </figure>
             </div>

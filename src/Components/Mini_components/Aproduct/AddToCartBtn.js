@@ -1,9 +1,11 @@
 import React from "react";
 import { useState } from "react";
+import { useCartContext } from "../../../Context/CartContext";
 import { useGlobleContext } from "../../../Context/Globle_Context";
 
-const AddToCartBtn = ({ stock }) => {
+const AddToCartBtn = ({ stock,product }) => {
   const { enabled } = useGlobleContext();
+  const {addToCart}=useCartContext()
   const [qty, setQty] = useState(1);
   const DecQty = () => {
     qty > 1 ? setQty(qty - 1) : setQty(1);
@@ -41,7 +43,7 @@ const AddToCartBtn = ({ stock }) => {
         </h3>
       </div>
       <div className={`my-3`}>
-        <button className="bg-yellow-500 text-blue-50 px-5 mx-1 py-2">
+        <button className="bg-yellow-500 text-blue-50 px-5 mx-1 py-2" onClick={()=>{addToCart(product,qty)}} >
           {" "}
           Add to cart
         </button>

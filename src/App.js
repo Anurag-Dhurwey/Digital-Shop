@@ -7,6 +7,7 @@ import Footer from './Components/Footer';
 import Products from './Components/Sub_components/Products';
 import { useGlobleContext } from './Context/Globle_Context';
 import Aproduct from './Components/Sub_components/Aproduct';
+import CartPage from './Components/Sub_components/CartPage';
 
 function App() {
   const {enabled}=useGlobleContext()
@@ -18,6 +19,7 @@ function App() {
       <Route path='/' element={<Home/>} />
       <Route path='/products' element={<Products/>} />
       <Route path='/product/:id' element={<Aproduct/>} />
+      <Route path='/cart' element={<CartPage/>} />
     </Routes>
     <Footer/>
     </>

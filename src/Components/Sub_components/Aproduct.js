@@ -7,7 +7,7 @@ const Aproduct = () => {
     const {state,get_A_product}=useGlobleContext()
     const {id}=useParams()
     const {aProduct,getOneError}=state
-    console.log(state)
+    
 useEffect(()=>{
        get_A_product(id)
        // eslint-disable-next-line

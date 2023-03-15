@@ -6,15 +6,18 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 import {GlobleContext} from './Context/Globle_Context';
 import { FilterContext } from './Context/FilterContext';
+import { CartContext } from './Context/CartContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <GlobleContext>
     <FilterContext>
-    <BrowserRouter>
+   <CartContext>
+   <BrowserRouter>
     <App />
     </BrowserRouter>
+   </CartContext>
     </FilterContext>
     </GlobleContext>
   </React.StrictMode>
