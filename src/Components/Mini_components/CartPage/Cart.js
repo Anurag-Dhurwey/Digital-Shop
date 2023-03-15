@@ -13,7 +13,7 @@ const Cart = () => {
     <>
      <Wrapper className='flex justify-around items-center'>
         <table>
-           <thead> <tr><th>Items</th><th>Quantity</th><th>Price</th></tr></thead>
+           <thead><tr><th>Items</th><th>Quantity</th><th>Price</th></tr></thead>
            <tbody>
            {cartItems?.map((item,i)=>{
                  return <tr key={i} className={` ${
