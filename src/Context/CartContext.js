@@ -1,5 +1,6 @@
-import { createContext, useContext, useEffect, useReducer } from "react";
+import { createContext, useContext, useEffect, useReducer, useState } from "react";
 import { cartReducer } from "../Reducer/cartReducer";
+import { useAuthContext } from "./AuthContext";
 import { getCart, postCartItems, putCartItems } from "./Mini_fuctions/CURDCartItems";
 const Context = createContext();
 
@@ -9,10 +10,13 @@ export const CartContext = ({ children }) => {
     totalQty: 0,
     totalPrice: 0,
     cartId:''
+    
   };
-
+  const [cartRef,refresCartId]=useState(false)
   const [cart, setCart] = useReducer(cartReducer, initialCart);
-  console.log(cart);
+  const {user}=useAuthContext()
+  console.log(cart)
+  console.log(user)
 
   const addToCart = async(product, qty) => {
 
@@ -43,7 +47,7 @@ export const CartContext = ({ children }) => {
             totalPrice:cart.totalPrice+product.attributes.price*qty
           };
         //   it will update same item in cartitems 
-          const res=await putCartItems('anurag1@gmail.com','anurag1',cart.cartId,addToCart)
+          const res=await putCartItems(cart.cartId,addToCart)
           if(res.data){
             setCart({ type: "ADD_TO_CART", payload:  addToCart  });
             console.log('same data updated successfully')
@@ -59,7 +63,7 @@ export const CartContext = ({ children }) => {
                 totalQty: cart.totalQty + qty,
                 totalPrice:cart.totalPrice+product.attributes.price*qty
               };
-              const res=await putCartItems('anurag1@gmail.com','anurag1',cart.cartId,addToCart)
+              const res=await putCartItems(cart.cartId,addToCart)
               if(res.data){
                 setCart({ type: "ADD_TO_CART", payload:  addToCart  });
                 console.log('new data added successfully')
@@ -82,7 +86,7 @@ export const CartContext = ({ children }) => {
             totalQty: cart.totalQty + qty,
             totalPrice: cart.totalPrice + product.attributes.price * qty,
           };
-        const res=await postCartItems('anurag3@gmail.com','anurag3',addToCart)
+        const res=await postCartItems(user.email,user.username,addToCart)
         if(res.data){
            setCart({ type: "ADD_TO_CART", payload:  addToCart  });
            console.log('data posted successfully for first time')
@@ -94,19 +98,23 @@ export const CartContext = ({ children }) => {
   };
   useEffect(() => {
     const getCartItem = async () => {
-      const cartRes = await getCart("anurag1@gmail.com");
+      if(user){
+        const cartRes = await getCart(user.email);
       if (cartRes.message) {
         console.log("cart error");
       } 
       if(cartRes.length) {
         setCart({ type: "GET_CART_ITEMS", payload: cartRes });
       }
+      }else{
+        console.error('user not found')
+      }
     };
     getCartItem();
-  }, []);
+  }, [user,cartRef]);
 
   return (
-    <Context.Provider value={{ cart, addToCart }}>{children}</Context.Provider>
+    <Context.Provider value={{ cart,refresCartId, addToCart }}>{children}</Context.Provider>
   );
 };
 

@@ -1,11 +1,14 @@
 import React from "react";
 import { useState } from "react";
+import { useAuthContext } from "../../../Context/AuthContext";
 import { useCartContext } from "../../../Context/CartContext";
 import { useGlobleContext } from "../../../Context/Globle_Context";
-
+import { useNavigate } from "react-router-dom";
 const AddToCartBtn = ({ stock,product }) => {
   const { enabled } = useGlobleContext();
   const {addToCart}=useCartContext()
+  const {user}=useAuthContext()
+  const navigate=useNavigate()
   const [qty, setQty] = useState(1);
   const DecQty = () => {
     qty > 1 ? setQty(qty - 1) : setQty(1);
@@ -43,11 +46,11 @@ const AddToCartBtn = ({ stock,product }) => {
         </h3>
       </div>
       <div className={`my-3`}>
-        <button className="bg-yellow-500 text-blue-50 px-5 mx-1 py-2" onClick={()=>{addToCart(product,qty)}} >
+        <button className="bg-yellow-500 text-blue-50 px-5 mx-1 py-2" onClick={()=>{user?addToCart(product,qty):navigate('/login')}} >
           {" "}
           Add to cart
         </button>
-        <button className="bg-yellow-500 text-blue-50 px-5 mx-1 py-2">
+        <button className="bg-yellow-500 text-blue-50 px-5 mx-1 py-2" onClick={()=>{user?console.log('Buy Now Logic not implemented'):navigate('/login')}}>
           {" "}
           Buy now
         </button>

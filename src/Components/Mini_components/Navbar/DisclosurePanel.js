@@ -2,8 +2,10 @@ import React from "react";
 import { Disclosure } from "@headlessui/react";
 import { Link } from "react-router-dom";
 import { useGlobleContext } from "../../../Context/Globle_Context";
+import { useAuthContext } from "../../../Context/AuthContext";
 const DisclosurePanel = (props) => {
   const {enabled}=useGlobleContext()
+  const {user}=useAuthContext()
   const { classNames, navigation,setNavigation } = props.class;
   return (
     <>
@@ -13,7 +15,7 @@ const DisclosurePanel = (props) => {
             <Disclosure.Button
               key={item.name}
               as={Link}
-              to={`${item.href}`}
+              to={!item.auth?item.href:user?item.href:'/login'}
               onClick={() => {
                 setNavigation({ type: "setCurrent", payload: item });
               }}

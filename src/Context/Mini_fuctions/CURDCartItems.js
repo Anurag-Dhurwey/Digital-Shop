@@ -1,5 +1,6 @@
 export const getCart=async(email)=>{
   try {
+    console.log({email})
     const res=await fetch(`${process.env.REACT_APP_DATAURL}${process.env.REACT_APP_CART_API}`, {
       method: "GET",
       headers: {
@@ -37,8 +38,8 @@ export const postCartItems=async(email,user,addToCart)=>{
           
           body: JSON.stringify({
             data:{
-              email:"anurag1@gmail.com",
-              user:"anurag1",
+              email:email,
+              user:user,
               cart:addToCart
             }
           })
@@ -55,7 +56,7 @@ export const postCartItems=async(email,user,addToCart)=>{
 
 
 
-export const putCartItems=async(email,user,cartId,addToCart)=>{
+export const putCartItems=async(cartId,addToCart)=>{
   
     try {
         const res=await fetch(`${process.env.REACT_APP_DATAURL}${process.env.REACT_APP_CART_API}/${cartId}`, {
