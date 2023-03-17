@@ -89,6 +89,7 @@ export const CartContext = ({ children }) => {
         const res=await postCartItems(user.email,user.username,addToCart)
         if(res.data){
            setCart({ type: "ADD_TO_CART", payload:  addToCart  });
+          refresCartId((val)=>{return val?false:true})
            console.log('data posted successfully for first time')
         }else{
             console.log('can not be posted first data')

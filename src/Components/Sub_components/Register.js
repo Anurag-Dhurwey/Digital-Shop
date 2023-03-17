@@ -14,15 +14,11 @@ import {
   import { Link } from "react-router-dom";
   import { useNavigate } from "react-router-dom";
   import { useAuthContext } from "../../Context/AuthContext"; 
-import { useCartContext } from "../../Context/CartContext";
-//   import useScreenSize from "../../hooks/useScreenSize";
   import { setToken } from "../../Context/Mini_fuctions/AuthToken";
   
   const Register = () => {
     const API=`${process.env.REACT_APP_DATAURL}`
-    // const { isDesktopView } = useScreenSize();
     const navigate = useNavigate();
-    const {refresCartId}=useCartContext()
     const { setUser } = useAuthContext();
   
     const [isLoading, setIsLoading] = useState(false);
@@ -49,7 +45,6 @@ import { useCartContext } from "../../Context/CartContext";
   
           // set the user
           setUser(data.user);
-          refresCartId(true)
   
           message.success(`Welcome to Social Cards ${data.user.username}!`);
           console.log(data)
@@ -65,8 +60,8 @@ import { useCartContext } from "../../Context/CartContext";
   
     return (
       <Fragment>
-        <Row align="middle">
-          <Col span={window.innerWidth>415 ? 8 : 24} offset={window.innerWidth>415 ? 8 : 0}>
+        <Row align="middle" className="justify-center">
+          <Col className="w-[300px] md:w-[400px] lg:w-[500px] justify-center">
             <Card title="Register">
               {error ? (
                 <Alert

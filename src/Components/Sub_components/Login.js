@@ -69,8 +69,8 @@ import {
   
     return (
       <Fragment>
-        <Row align="middle">
-          <Col span={window.innerWidth>415 ? 8 : 24} offset={window.innerWidth>415 ? 8 : 0}>
+        <Row align="middle" className="justify-center">
+          <Col className="w-[300px] md:w-[400px] lg:w-[500px] ">
             <Card title="LogIn">
               {error ? (
                 <Alert
