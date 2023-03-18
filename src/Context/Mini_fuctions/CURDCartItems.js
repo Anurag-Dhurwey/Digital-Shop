@@ -1,6 +1,5 @@
 export const getCart=async(email)=>{
   try {
-    console.log({email})
     const res=await fetch(`${process.env.REACT_APP_DATAURL}${process.env.REACT_APP_CART_API}`, {
       method: "GET",
       headers: {
@@ -14,7 +13,6 @@ export const getCart=async(email)=>{
       jsonRes=jsonRes.data?.filter((item)=>{
               return email ===item.attributes.email
       })
-      console.log(jsonRes)
       return jsonRes
   } catch (error) {
     console.log(error.message)
@@ -45,7 +43,6 @@ export const postCartItems=async(email,user,addToCart)=>{
           })
           })
           const jsonRes=await res.json()
-          console.log(`${jsonRes} this is json res`)
           return jsonRes
       } catch (error) {
         console.log(error.message)
@@ -77,7 +74,6 @@ export const putCartItems=async(cartId,addToCart)=>{
           })
           })
           const jsonRes=await res.json()
-          console.log(`${jsonRes} this is json res`)
           return jsonRes
       } catch (error) {
         console.log(error.message)

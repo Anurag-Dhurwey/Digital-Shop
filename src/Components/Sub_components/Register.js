@@ -47,7 +47,6 @@ import {
           setUser(data.user);
   
           message.success(`Welcome to Social Cards ${data.user.username}!`);
-          console.log(data)
           navigate("/profile", { replace: true });
         }
       } catch (error) {

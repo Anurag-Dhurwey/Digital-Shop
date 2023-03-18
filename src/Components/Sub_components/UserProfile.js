@@ -13,8 +13,8 @@ const UserProfile = () => {
 
       </div>
       <div className='w-[100%] '>
-     <h5>User name :<span> {user.username}</span></h5>
-     <h5>Email ID :<span> {user.email}</span></h5>
+     <h5>User name :<span> {user?user.username:''}</span></h5>
+     <h5>Email ID :<span> {user?user.email:''}</span></h5>
       </div>
       <div className=''>
      <h5>Description : </h5>
