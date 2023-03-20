@@ -10,7 +10,7 @@ const Banner = ({banner}) => {
             return (
                 <div key={i} className='my-3 py-2'>
                     <figure className='w-[100%] flex justify-center align-middle'>
-                    <img src={item.img}/>
+                    <img src={item.img} alt="Banner_IMG"/>
                 </figure>
                 {item.desc?.map((item,i)=>{
                     return <p key={i}>{item.key?item.key:item}{item.value?item.value:'.'}</p>

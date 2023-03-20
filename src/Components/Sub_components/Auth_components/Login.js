@@ -10,34 +10,66 @@ import {
     Spin,
     Typography,
   } from "antd";
-  import React, { Fragment, useState } from "react";
+  import React, { Fragment, useState,useEffect } from "react";
   import { Link } from "react-router-dom";
   import { useNavigate } from "react-router-dom";
-  import { useAuthContext } from "../../Context/AuthContext"; 
-  import { setToken } from "../../Context/Mini_fuctions/AuthToken";
+  import { useAuthContext } from "../../../Context/AuthContext"; 
+  import { setToken } from "../../../Context/Mini_fuctions/AuthToken";
   
-  const Register = () => {
+  const Login = () => {
     const API=`${process.env.REACT_APP_DATAURL}`
     const navigate = useNavigate();
-    const { setUser } = useAuthContext();
+  
+    const { user,setUser } = useAuthContext();
   
     const [isLoading, setIsLoading] = useState(false);
   
     const [error, setError] = useState("");
+
+
+    const sendEmailConfirmation=async(email)=>{
+      try {
+        console.log('sending email verifi')
+       const response = await fetch(`${API}${process.env.REACT_APP_SEND_EMAIL_CONFIRMATION}`, {
+         method: "POST",
+         headers: {
+           "Content-Type": "application/json",
+         },
+         body: JSON.stringify({email}),
+       });
+
+       if(response?.error){
+        throw response?.error;
+       }else{
+        message.success(`A verification mail is sent to ${email}!`);
+       }
+
+      } catch (error) {
+        message.error(`Can not sent verification email to ${email}!`);
+      }
+}
   
     const onFinish = async (values) => {
       setIsLoading(true);
       try {
-        const response = await fetch(`${API}${process.env.REACT_APP_REGISTER_USER}`, {
+        const value = {
+          identifier: values.email,
+          password: values.password,
+        };
+        const response = await fetch(`${API}${process.env.REACT_APP_LOGIN_USER}`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(values),
+          body: JSON.stringify(value),
         });
   
         const data = await response.json();
         if (data?.error) {
+           if(data.error.message==='Your account email is not confirmed'){
+            sendEmailConfirmation(values.email)
+           
+           }
           throw data?.error;
         } else {
           // set the token
@@ -46,22 +78,40 @@ import {
           // set the user
           setUser(data.user);
   
-          message.success(`Welcome to Social Cards ${data.user.username}!`);
+          message.success(`Welcome back ${data.user.username}!`);
+          console.log(data)
+  
           navigate("/profile", { replace: true });
         }
       } catch (error) {
+        console.log('catch error')
         console.error(error);
         setError(error?.message ?? "Something went wrong!");
       } finally {
         setIsLoading(false);
       }
     };
+
+    
+
+
+    useEffect(()=>{
+      if(user){
+        navigate('/')
+        console.log('no login')
+      }
+      // eslint-disable-next-line 
+  },[])
+
   
     return (
-      <Fragment>
+      <>
+       {!user?<>
+       
+        <Fragment>
         <Row align="middle" className="justify-center">
-          <Col className="w-[300px] md:w-[400px] lg:w-[500px] justify-center">
-            <Card title="Register">
+          <Col className="w-[300px] md:w-[400px] lg:w-[500px] ">
+            <Card title="LogIn">
               {error ? (
                 <Alert
                   className="alert_error"
@@ -77,18 +127,6 @@ import {
                 onFinish={onFinish}
                 autoComplete="off"
               >
-                <Form.Item
-                  label="Username"
-                  name="username"
-                  rules={[
-                    {
-                      required: true,
-                      type: "string",
-                    },
-                  ]}
-                >
-                  <Input placeholder="Username" />
-                </Form.Item>
                 <Form.Item
                   label="Email"
                   name="email"
@@ -116,18 +154,20 @@ import {
                     htmlType="submit"
                     className="login_submit_btn"
                   >
-                    Submit {isLoading && <Spin size="small" />}
+                    Login {isLoading && <Spin size="small" />}
                   </Button>
                 </Form.Item>
               </Form>
               <Typography.Paragraph className="form_help_text">
-                Already have an account? <Link to="/login">LogIn</Link>
+                New to Social Cards? <Link to="/register">Register</Link>
               </Typography.Paragraph>
             </Card>
           </Col>
         </Row>
       </Fragment>
+       </>:''}
+      </>
     );
   };
   
-  export default Register;
+  export default Login;
