@@ -10,54 +10,39 @@ import {
     Spin,
     Typography,
   } from "antd";
-  import React, { Fragment, useState } from "react";
+  import React, { Fragment, useState,useEffect } from "react";
   import { Link } from "react-router-dom";
   import { useNavigate } from "react-router-dom";
-  import { useAuthContext } from "../../Context/AuthContext"; 
-//   import useScreenSize from "../../hooks/useScreenSize";
-//   import { API } from "../../constant";
-  import { setToken } from "../../Context/Mini_fuctions/AuthToken";
+  import { useAuthContext } from "../../../Context/AuthContext"; 
+import { useGlobleContext } from "../../../Context/Globle_Context";
+  // import { setToken } from "../../../Context/Mini_fuctions/AuthToken";
   
-  const Login = () => {
+  const Register = () => {
     const API=`${process.env.REACT_APP_DATAURL}`
-    // const { isDesktopView } = useScreenSize();
     const navigate = useNavigate();
-  
-    const { setUser } = useAuthContext();
+    const {enabled}=useGlobleContext()
+    const {user,setUser,setRegisterersEmail } = useAuthContext();
   
     const [isLoading, setIsLoading] = useState(false);
-  
     const [error, setError] = useState("");
-  
     const onFinish = async (values) => {
       setIsLoading(true);
       try {
-        const value = {
-          identifier: values.email,
-          password: values.password,
-        };
-        const response = await fetch(`${API}${process.env.REACT_APP_LOGIN_USER}`, {
+        const response = await fetch(`${API}${process.env.REACT_APP_REGISTER_USER}`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(value),
+          body: JSON.stringify(values),
         });
   
         const data = await response.json();
         if (data?.error) {
           throw data?.error;
         } else {
-          // set the token
-          setToken(data.jwt);
-  
-          // set the user
-          setUser(data.user);
-  
-          message.success(`Welcome back ${data.user.username}!`);
-          console.log(data)
-  
-          navigate("/profile", { replace: true });
+          setRegisterersEmail(data.user.email)
+          message.success(`A verification mail is sent to ${data.user.email}!`);
+          navigate("/verify-registeres-email", { replace: true });
         }
       } catch (error) {
         console.error(error);
@@ -67,11 +52,22 @@ import {
       }
     };
   
+
+    useEffect(()=>{
+      if(user){
+        navigate('/')
+      }
+      // eslint-disable-next-line 
+  },[])
+
+
     return (
-      <Fragment>
+      <>
+      {!user?<>
+        <Fragment>
         <Row align="middle" className="justify-center">
-          <Col className="w-[300px] md:w-[400px] lg:w-[500px] ">
-            <Card title="LogIn">
+          <Col className={`w-[300px] md:w-[400px] lg:w-[500px] justify-center`}>
+            <Card title="Register">
               {error ? (
                 <Alert
                   className="alert_error"
@@ -87,6 +83,18 @@ import {
                 onFinish={onFinish}
                 autoComplete="off"
               >
+                <Form.Item
+                  label="Username"
+                  name="username"
+                  rules={[
+                    {
+                      required: true,
+                      type: "string",
+                    },
+                  ]}
+                >
+                  <Input placeholder="Username" />
+                </Form.Item>
                 <Form.Item
                   label="Email"
                   name="email"
@@ -114,18 +122,20 @@ import {
                     htmlType="submit"
                     className="login_submit_btn"
                   >
-                    Login {isLoading && <Spin size="small" />}
+                    Submit {isLoading && <Spin size="small" />}
                   </Button>
                 </Form.Item>
               </Form>
               <Typography.Paragraph className="form_help_text">
-                New to Social Cards? <Link to="/register">Register</Link>
+                Already have an account? <Link to="/login">LogIn</Link>
               </Typography.Paragraph>
             </Card>
           </Col>
         </Row>
       </Fragment>
+      </>:''}
+      </>
     );
   };
   
-  export default Login;
+  export default Register;

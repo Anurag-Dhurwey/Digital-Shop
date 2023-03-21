@@ -6,6 +6,7 @@ const Context=createContext()
 export const AuthContext=({children})=>{
     
     const [userData, setUserData] = useState();
+    const [registerersEmail,setRegisterersEmail]=useState()
       const [isLoading, setIsLoading] = useState(false);
 
       const authToken=getToken()
@@ -38,7 +39,7 @@ export const AuthContext=({children})=>{
           }
     },[authToken])
 
-    return <Context.Provider value={{user:userData,setUser:updateUser,isLoading}}>
+    return <Context.Provider value={{user:userData,setUser:updateUser,isLoading,registerersEmail,setRegisterersEmail}}>
         {children}
     </Context.Provider>
 }
